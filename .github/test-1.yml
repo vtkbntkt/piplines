@@ -1,0 +1,13 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on:ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run script
+      run: echo Hello Man
+    - name: Run many scripts
+      run: |
+        echo I am here
+        echo I am here again 
