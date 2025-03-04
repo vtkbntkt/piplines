@@ -1,5 +1,10 @@
-name: CI
-on: [push]
+name: Validate PR on develop branch
+on: 
+  pull_request:
+    types: [opened, synchronize]
+    branches: [develop]
+    paths:
+      - 'force-app/**'
 jobs:
   build:
     runs-on: ubuntu-latest
