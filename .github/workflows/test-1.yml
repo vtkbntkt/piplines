@@ -35,7 +35,7 @@ jobs:
     - name: 'Install node' 
       uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
     # This action checks-out your repository (clones your repository’s code into the runner.) under $GITHUB_WORKSPACE, so your workflow can access it.
 
     # The idea is that the VM can access your remote repository ()
