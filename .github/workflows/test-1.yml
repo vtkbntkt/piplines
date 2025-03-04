@@ -31,10 +31,9 @@ jobs:
     # This condition is used to skip the job or step when Dependabot triggers the workflow.
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
     - uses: actions/checkout@v1
     - name: Run script
       run: echo Hello Man
-    - name: Run many scripts
-      run: |
-        echo I am here
-        echo I am here again 
