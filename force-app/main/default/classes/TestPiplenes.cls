@@ -1,5 +1,8 @@
 public with sharing class TestPiplenes {
-    public TestPiplenes() {
-
+    /**
+     * 
+     */
+    public static String getResponse(String input){
+        return '#'+input;
     }
 }
