@@ -120,3 +120,23 @@ jobs:
     # Install SFDX scanner
     - name: 'Installing SFDX scanner'
       run: sfdx plugins:install @salesforce/sfdx-scanner
+
+    # Prior to setting up this workflow, you have to create a Github Secret
+    # that contains the sfdx url (sfdx force:org:display --verbose --json => sfdxAuthUrl) of the integration/qa org.
+
+    # This URL can then be used with the sfdx auth:sfdxurl:store to authenticate
+    # the sfdx project in the repositry, against the org from which the URL
+    # was generated from. This works just like that, there's no need to create
+    # connected apps or any else. ALTHOUGH you can use JWT authorisation
+
+    # The URL is stored in the Github Secret named SFDX_INTEGRATION_URL
+    # so here we store the URL into a text file
+    - name: 'Populate auth file with SFDX_URL secret of integration org'
+      shell: bash
+       # Write the private key from GitHub Secrets to a file
+      run: |
+        echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
+
+    # Authenticate to org using the URL stored in the text file
+    - name: 'Authenticate to Integration Org'
+      run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
