@@ -95,9 +95,9 @@ jobs:
     # Now Install Salesforce CLI
     - name: 'Install Salesforce CLI'
       run: |
-        npm install --global sfdx-cli
-        sfdx --version
-        sfdx plugins --core
+        npm install --global @salesforce/cli --global
+        sf --version
+        sf plugins --core
 
 
 
@@ -108,8 +108,8 @@ jobs:
 
     - name: 'Installing sfdx git delta'
       run: | 
-        echo y | sfdx plugins:install sfdx-git-delta
-        sfdx plugins 
+        echo y | sf plugins:install sfdx-git-delta
+        sf plugins 
 
     # Install java as it is required for the next step
     - name: 'Installing java'
@@ -139,4 +139,4 @@ jobs:
 
     # Authenticate to org using the URL stored in the text file
     - name: 'Authenticate to Integration Org'
-      run: sfdx force:auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
+      run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
