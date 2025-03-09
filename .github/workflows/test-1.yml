@@ -180,13 +180,13 @@ jobs:
       if: ${{ env.APEX_TESTS != 'all' }}
       run: |
         echo ${{env.APEX_TESTS}}
-        sf project deploy star --source-dir "changed-sources/force-app" --dry-run --test-level "RunSpecifiedTests" --tests "${{ env.APEX_TESTS }}" --json
+        sf project deploy start --source-dir "changed-sources/force-app" --dry-run --test-level "RunSpecifiedTests" --tests "${{ env.APEX_TESTS }}" --json
 
     # If the env variable equals all, we run all tests
     - name: 'Check-only deploy delta changes - run all tests'
       if: ${{ env.APEX_TESTS == 'all' }}
       run: |
-        sf project deploy star --source-dir "changed-sources/force-app" --dry-run --test-level "RunLocalTests"  --json
+        sf project deploy start --source-dir "changed-sources/force-app" --dry-run --test-level "RunLocalTests"  --json
 
     - name: 'Deploy destructive changes (if any)'
       run: sf deploy metadata --source-dir "changed-sources/destructiveChanges" --dry-run --ignore-warnings
