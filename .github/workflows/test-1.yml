@@ -18,6 +18,11 @@ on:
     paths:
       - 'force-app/**'
 
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: write
+
 # Jobs to be executed when the above conditions are met
 jobs:
   # This is the name of the job. You can give it whatever name you want
