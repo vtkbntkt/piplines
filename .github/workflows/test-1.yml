@@ -36,7 +36,7 @@ jobs:
     # This condition is used to skip the job or step when Dependabot triggers the workflow.
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
-    # Now we install nodejs in the VM, and specify version 14
+    # Now we install nodejs in the VM, and specify version 20
     - name: 'Install node' 
       uses: actions/setup-node@v4
       with:
@@ -171,3 +171,22 @@ jobs:
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: changed-sources/apexScanResults.sarif
+
+    # We do a check-only deploy and we only run the tests specified in the PR
+    # If the env variable does not equal 'all', we know that there is a list of
+    # tests that can be run
+
+    - name: 'Check-only deploy delta changes - run specified tests'
+      if: ${{ env.APEX_TESTS != 'all' }}
+      run: |
+        echo ${{env.APEX_TESTS}}
+        sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
+
+    # If the env variable equals all, we run all tests
+    - name: 'Check-only deploy delta changes - run all tests'
+      if: ${{ env.APEX_TESTS == 'all' }}
+      run: |
+        sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
+
+    - name: 'Deploy destructive changes (if any)'
+      run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings 
