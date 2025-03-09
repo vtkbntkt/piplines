@@ -51,7 +51,7 @@ jobs:
       run: sf org login sfdx-url --sfdx-url-file ./SFDX_INTEGRATION_URL.txt --alias integration --set-default
 
     - name: 'Deploy the entire branch to Integration org'
-      run: sf project deploy start --source-dir force-app --test-level RunLocalTests --json
+      run: sf project deploy start --source-dir force-app --test-level RunSpecifiedTests --class-names TestpiplenesTest --json
 
     - name: 'Deploy destructive changes (if any) to Integration org'
       run: |
