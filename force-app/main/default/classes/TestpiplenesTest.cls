@@ -13,6 +13,5 @@ private class TestpiplenesTest {
 
         //Then
         System.assertEquals('#test', resp);
-
     }
 }
