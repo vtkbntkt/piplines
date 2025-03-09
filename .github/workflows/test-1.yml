@@ -172,4 +172,3 @@ jobs:
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: changed-sources/apexScanResults.sarif
-        token: ${{ secrets.GITHUB_TOKEN }}
